@@ -3,7 +3,7 @@
     <img src="./assets/logo.png">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
-        <div class="box" style="width:400px;height:200px;">
+        <div class="box" style="width:400px;height:200px;margin:0 auto;">
     <Slideshow v-bind="setData"></Slideshow>
     </div>
     <ul>

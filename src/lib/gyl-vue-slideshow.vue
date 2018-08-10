@@ -12,15 +12,18 @@
 <script>
 export default {
   props: {
-    imgArr: { //图片地址参数数组
+    imgArr: {
+      //图片地址参数数组
       type: Array,
       default: _ => []
     },
-    wrapWidth: { //包裹层宽
+    wrapWidth: {
+      //包裹层宽
       type: [Number, String],
       default: 400
     },
-    wrapHeight: { //包裹层高
+    wrapHeight: {
+      //包裹层高
       type: [Number, String],
       default: 200
     }
@@ -29,7 +32,7 @@ export default {
     return {
       x1: "", //按下的坐标
       x2: "", //移动的坐标
-      changeX: "", 
+      changeX: "",
       pArr: []
     };
   },
@@ -47,14 +50,11 @@ export default {
       return {
         width: this.wrapWidth + "px",
         height: this.wrapHeight + "px",
-        background: "yellow",
-        margin: " 0 auto"
       };
     }
   },
   mounted() {
     this.$nextTick(_ => {
-      this.bindEvents();
       this.setPArr();
     });
   },
@@ -99,22 +99,24 @@ export default {
       console.log(this.pArr);
     },
     slideStart(e) {
+        this.bindEvents();
       if (this.isMobile) {
-        this.x1 = event.targetTouches[0].clientX;
+        this.x1 = e.targetTouches[0].clientX;
       } else {
-        this.x1 = event.clientX;
+        this.x1 = e.clientX;
       }
     },
     slideMove(e) {
       if (this.isMobile) {
-        this.x2 = event.targetTouches[0].clientX;
+        this.x2 = e.targetTouches[0].clientX;
       } else {
-        e.preventDefault() //禁止移动端图片默认拖拽事件
-        this.x2 = event.clientX;
+        e.preventDefault(); //禁止移动端图片默认拖拽事件
+        this.x2 = e.clientX;
       }
     },
     slideEnd(e) {
       this.changeX = this.x2 - this.x1;
+      console.log("this.changeX", this.changeX);
       if (this.changeX < 0) {
         //往左滑
         this.pArr.unshift(this.pArr[this.pArr.length - 1]);
@@ -127,6 +129,7 @@ export default {
         this.pArr.shift();
         this.push();
       }
+      this.unbindEvents();
     },
     push() {
       let li = document.querySelectorAll(".vue-slideshow-list li");
@@ -135,9 +138,6 @@ export default {
         li[i].setAttribute("class", this.pArr[i]);
       }
     }
-  },
-  beforeDestroy() {
-    this.unbindEvents();
   }
 };
 </script>
