@@ -1,5 +1,5 @@
 # gyl-vue-slideshow
-Vue 3D轮播图插件  
+## 一款Vue的3D轮播图插件  
 
 #### 安装  
 npm i gyl-vue-slideshow  
